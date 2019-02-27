@@ -4,12 +4,16 @@ var EventEmitter = require('events').EventEmitter;
 var Pool = require('generic-pool').Pool;
 var bluebird = require('bluebird');
 
-bluebird.promisifyAll(redis.RedisClient.prototype);
-bluebird.promisifyAll(redis.Multi.prototype);
+try {
+  bluebird.promisifyAll(redis.RedisClient.prototype);
+  bluebird.promisifyAll(redis.Multi.prototype);
+} catch (err) {
+  //swallow bluebird errors that happen after node promisifies the lib twice.
+}
 
 var SUPPORTED_REDIS_OPTIONS = [
   'host', 'port', 'path', 'url', 'password',
-  'string_numbers', 'return_buffers', 'detect_buffers', 
+  'string_numbers', 'return_buffers', 'detect_buffers',
   'socket_keepalive', 'no_ready_check', 'enable_offline_queue',
   'retry_unfulfilled_commands', 'family', 'disable_resubscribing',
   'rename_commands', 'auth_pass', 'db', 'retry_strategy', 'tls', 'prefix'
@@ -86,7 +90,7 @@ RedisPool.prototype._initialize = function() {
     try {
       _cid = client._sol_cid;
       // Always flush when closing.
-      client.end(true); 
+      client.end(true);
     } catch(err) {
       _err = err;
       client = null;
