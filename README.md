@@ -211,3 +211,7 @@ Examples are located in the examples/ folder in the repository. These examples w
 - Added options: 'string_numbers', 'retry_unfulfilled_commands', 'disable_resubscribing', 'rename_commands'
 - Changed minimum redis client version to 2.6.2. 
 - Added a reconnecting event. 
+
+## Code of Conduct
+
+Everyone interacting in the project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/sypht-team/sol-redis-pool/blob/master/CODE_OF_CONDUCT.md).
